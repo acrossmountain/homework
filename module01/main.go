@@ -26,7 +26,7 @@ func handleVersionFunc(rw http.ResponseWriter, r *http.Request) {
 }
 
 // healthz
-func handleHealthzFunc(rw http.ResponseWriter, r *http.Request) {
+func handleHealthFunc(rw http.ResponseWriter, r *http.Request) {
 	rw.WriteHeader(http.StatusOK)
 	rw.Write([]byte("ok"))
 }
@@ -52,7 +52,7 @@ func init() {
 func router() {
 	http.Handle("/header", loggerMiddleware(http.HandlerFunc(handleHeaderFunc)))
 	http.Handle("/version", loggerMiddleware(http.HandlerFunc(handleVersionFunc)))
-	http.Handle("/healthz", loggerMiddleware(http.HandlerFunc(handleHealthzFunc)))
+	http.Handle("/healthz", loggerMiddleware(http.HandlerFunc(handleHealthFunc)))
 }
 
 func main() {
