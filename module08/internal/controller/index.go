@@ -26,7 +26,7 @@ func (c *Index) HeaderHandle(ctx web.Context) {
 		ctx.Header(key, strings.Join(value, ""))
 	}
 	ctx.Status(http.StatusOK)
-	ctx.String("%", "ok")
+	ctx.String("ok")
 }
 
 func (c *Index) HealthHandle(ctx web.Context) {

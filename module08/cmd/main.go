@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "github.com/acrossmountain/homework/module08/internal/chain"
 	_ "github.com/acrossmountain/homework/module08/internal/controller"
 	_ "github.com/go-spring/starter-echo"
 
