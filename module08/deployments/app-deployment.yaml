@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gsapp
+  labels:
+    app: gsapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gsapp
+  template:
+    metadata:
+      name: gsapp
+      labels:
+        app: gsapp
+    spec:
+      containers:
+        - name: gsapp
+          image: gsapp:v1
+          ports:
+            - containerPort: 12306
+              protocol: TCP
+          resources:
+            requests:
+              cpu: "300m"
+              memory: "512Mi"
+            limits:
+              cpu: "300m"
+              memory: "512Mi"
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gsapp-svc
+spec:
+  selector:
+    app: gsapp
+  ports:
+    - port: 12306
+      targetPort: 12306
+  type: NodePort
