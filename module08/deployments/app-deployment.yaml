@@ -1,34 +1,62 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  # deployment 名称
   name: gsapp
   labels:
+    # label 标签
     app: gsapp
 spec:
+  # 副本数量
   replicas: 1
+  # 选择器
   selector:
+    # 匹配 template metadata labels
     matchLabels:
       app: gsapp
   template:
+    # pod metadata
     metadata:
+      # pod name
       name: gsapp
+      # pod labels
       labels:
         app: gsapp
     spec:
       containers:
+          # 容器名称
         - name: gsapp
+          # 容器镜像
           image: 18339795172/gsapp:v1
+          # 镜像拉取规则
+          imagePullPolicy: IfNotPresent
+          # 开放端口
           ports:
+              # 容器内端口
             - containerPort: 12306
+              # 协议
               protocol: TCP
+          # 健康探针
+          livenessProbe:
+            # exec tcp http-get
+            httpGet:
+              path: /health
+              port: 12306
+            # 容器启动后多少时间开始执行
+            initialDelaySeconds: 5
+            # 执行周期
+            periodSeconds: 5
+          # 资源
           resources:
+            # 容器最小可调度资源
             requests:
               cpu: 50m
               memory: 128Mi
+            # 容器最大可电镀资源
             limits:
               cpu: 100m
               memory: 256Mi
-          imagePullPolicy: IfNotPresent
+      # 容器重启规则
       restartPolicy: Always
 ---
 apiVersion: v1
@@ -36,9 +64,14 @@ kind: Service
 metadata:
   name: gsapp-svc
 spec:
+  # 匹配 pod 的 labels
   selector:
     app: gsapp
+  # 端口
   ports:
+      # 服务端口
     - port: 12306
+      # pod 暴漏端口
       targetPort: 12306
+  # 服务类型
   type: NodePort
