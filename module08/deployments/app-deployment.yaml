@@ -23,11 +23,11 @@ spec:
               protocol: TCP
           resources:
             requests:
-              cpu: "300m"
-              memory: "512Mi"
+              cpu: 50m
+              memory: 128Mi
             limits:
-              cpu: "300m"
-              memory: "512Mi"
+              cpu: 100m
+              memory: 256Mi
           imagePullPolicy: IfNotPresent
       restartPolicy: Always
 ---
