@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: gsapp
-          image: gsapp:v1
+          image: 18339795172/gsapp:v1
           ports:
             - containerPort: 12306
               protocol: TCP
