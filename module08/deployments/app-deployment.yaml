@@ -46,6 +46,18 @@ spec:
             initialDelaySeconds: 5
             # 执行周期
             periodSeconds: 5
+          readinessProbe:
+            # exec tcp http-get
+            httpGet:
+              path: /health
+              port: 12306
+            initialDelaySeconds: 4
+          startupProbe:
+            # exec tcp http-get
+            httpGet:
+              path: /health
+              port: 12306
+            initialDelaySeconds: 3
           # 资源
           resources:
             # 容器最小可调度资源
